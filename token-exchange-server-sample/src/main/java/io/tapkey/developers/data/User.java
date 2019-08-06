@@ -49,7 +49,7 @@ public class User {
     @Override
     public String toString() {
         return String.format(
-                "Customer[id=%d, firstName='%s', lastName='%s']",
+                "Customer[id=%s, firstName='%s', lastName='%s']",
                 getId(), getFirstName(), getLastName());
     }
 

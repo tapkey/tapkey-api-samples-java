@@ -1,6 +1,5 @@
 package io.tapkey.developers.auth;
 
-import io.tapkey.developers.auth.SampleUserPrincipal;
 import io.tapkey.developers.data.User;
 import io.tapkey.developers.data.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
