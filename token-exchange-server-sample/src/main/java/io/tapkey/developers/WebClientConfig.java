@@ -22,9 +22,9 @@ public class WebClientConfig {
                  * logging.level.reactor.netty.http.client.HttpClient=DEBUG
                  * to get detailed logging on HTTP requests.
                  */
-                // .clientConnector(new ReactorClientHttpConnector(
-                //         HttpClient.create().wiretap(true)
-                // ))
+                //.clientConnector(new ReactorClientHttpConnector(
+                //HttpClient.create().wiretap(true)
+                //))
                 .filter(oauth)
                 .build();
     }
