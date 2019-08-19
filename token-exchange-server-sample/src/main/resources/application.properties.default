@@ -1,3 +1,4 @@
+tapkey.authority=https://my.tapkey.com
 tapkey.ownerAccount.id=
 tapkey.boundLock.id=
 
@@ -11,7 +12,7 @@ spring.security.oauth2.client.provider.tapkey.issuer-uri=https://login.tapkey.co
 spring.security.oauth2.client.registration.tapkey.authorization-grant-type=client_credentials
 spring.security.oauth2.client.registration.tapkey.client-id=
 spring.security.oauth2.client.registration.tapkey.client-secret=
-spring.security.oauth2.client.registration.tapkey.scope=write:ip:users write:grants write:core:entities
+spring.security.oauth2.client.registration.tapkey.scope=write:ip:users read:grants write:grants write:core:entities
 
 logging.level.org.springframework.security=
 logging.level.reactor=

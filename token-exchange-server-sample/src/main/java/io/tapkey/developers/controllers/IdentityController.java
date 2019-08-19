@@ -92,7 +92,14 @@ public class IdentityController {
                         return principal.getId();
                     })
                     .flatMap(userId -> tapkeyManagementService.createContact(principal.getId()))
-                    .flatMap(contactId -> tapkeyManagementService.createGrant(contactId, demoBoundLockId))
+                    .flatMap(tapkeyContactId -> {
+                        // Update user with Tapkey contact ID.
+                        User user = userRepository.findById(principal.getId()).orElse(null);
+                        assert user != null;
+                        user.setTapkeyContactId(tapkeyContactId);
+                        userRepository.save(user);
+                        return tapkeyManagementService.createGrant(tapkeyContactId, demoBoundLockId);
+                    })
                     .map(grantId -> Collections.singletonMap(
                             "externalToken", tapkeyTokenExchangeService.createJwtToken(principal.getId())
                         )

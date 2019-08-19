@@ -29,6 +29,8 @@ public class User {
 
     private String tapkeyUserId;
 
+    private String tapkeyContactId;
+
     private String firstName;
 
     private String lastName;
@@ -89,5 +91,13 @@ public class User {
 
     public void setTapkeyUserId(String tapkeyUserId) {
         this.tapkeyUserId = tapkeyUserId;
+    }
+
+    public String getTapkeyContactId() {
+        return tapkeyContactId;
+    }
+
+    public void setTapkeyContactId(String tapkeyContactId) {
+        this.tapkeyContactId = tapkeyContactId;
     }
 }

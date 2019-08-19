@@ -1,13 +1,21 @@
 package io.tapkey.developers.service;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.Date;
+import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class GrantDto {
     private String id;
     private String boundLockId;
     private String contactId;
-    private String status;
+    private String state;
+    private Date validBefore;
+    private Date validFrom;
+    private String timeRestrictionIcal;
+    private String physicalLockId;
 
     public GrantDto() {
     }
@@ -41,11 +49,48 @@ public class GrantDto {
         this.contactId = contactId;
     }
 
-    public String getStatus() {
-        return status;
+    public String getState() {
+        return state;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public Date getValidBefore() {
+        return validBefore;
+    }
+
+    public void setValidBefore(Date validBefore) {
+        this.validBefore = validBefore;
+    }
+
+    public Date getValidFrom() {
+        return validFrom;
+    }
+
+    public void setValidFrom(Date validFrom) {
+        this.validFrom = validFrom;
+    }
+
+    public String getTimeRestrictionIcal() {
+        return timeRestrictionIcal;
+    }
+
+    public void setTimeRestrictionIcal(String timeRestrictionIcal) {
+        this.timeRestrictionIcal = timeRestrictionIcal;
+    }
+
+    public String getPhysicalLockId() {
+        return physicalLockId;
+    }
+
+    public void setPhysicalLockId(String physicalLockId) {
+        this.physicalLockId = physicalLockId;
+    }
+
+    @JsonProperty("boundLock")
+    private void unpackNested(Map<String, Object> boundLock) {
+        setPhysicalLockId((String) boundLock.get("physicalLockId"));
     }
 }

@@ -29,6 +29,18 @@ public class SampleUserPrincipal implements UserDetails {
         return user.getTapkeyUserId();
     }
 
+    public String getTapkeyContactId() {
+        return user.getTapkeyContactId();
+    }
+
+    public String getFirstName() {
+        return user.getFirstName();
+    }
+
+    public String getLastName() {
+        return user.getLastName();
+    }
+
     @Override
     public String getPassword() {
         return user.getPassword();
