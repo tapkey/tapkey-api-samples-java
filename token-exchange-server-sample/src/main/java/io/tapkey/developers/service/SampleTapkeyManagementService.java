@@ -56,7 +56,7 @@ public class SampleTapkeyManagementService implements TapkeyManagementService {
 
         return webClient
                 .put()
-                .uri(uriBuilder.build(ownerAccountId).toString())
+                .uri(uriBuilder.build(ownerAccountId))
                 .attributes(clientRegistrationId("tapkey"))
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .body(Mono.just(new ContactDto(identityProviderId, userId)), ContactDto.class)
@@ -77,7 +77,7 @@ public class SampleTapkeyManagementService implements TapkeyManagementService {
 
         return webClient
                 .put()
-                .uri(uriBuilder.build(ownerAccountId).toString())
+                .uri(uriBuilder.build(ownerAccountId))
                 .attributes(clientRegistrationId("tapkey"))
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .body(Mono.just(new GrantDto(contactId, boundLockId)), GrantDto.class)
@@ -95,11 +95,11 @@ public class SampleTapkeyManagementService implements TapkeyManagementService {
                 .pathSegment("Owners")
                 .pathSegment("{ownerAccountId}")
                 .pathSegment("Grants")
-                .queryParam("$filter", "active eq true");
+                .query("$filter=active eq true");
 
         return webClient
                 .get()
-                .uri(uriBuilder.build(ownerAccountId).toString())
+                .uri(uriBuilder.build(ownerAccountId))
                 .attributes(clientRegistrationId("tapkey"))
                 .retrieve()
                 .bodyToMono(GrantDto[].class)
