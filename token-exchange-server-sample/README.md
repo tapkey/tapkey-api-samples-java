@@ -9,6 +9,8 @@ A server application that demonstrates Tapkey's Token Exchange grant type.
   Authentication in the `/user/tapkey-token` operation.
 * `GET /user/tapkey-token`: Returns a JWT token that can be exchanged for a
   Tapkey access token. Requires Basic Authentication.
+* `GET /user/grants?grantIds=1,2,3,4`: Returns application-specific grant
+  information for the specified grant IDs.
   
 ## Setup
 * Clone this repository
