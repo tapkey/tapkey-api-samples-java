@@ -10,7 +10,7 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 public class SampleSecurityConfiguration {
 
     @Bean
-    public SecurityWebFilterChain configure(ServerHttpSecurity http) throws Exception {
+    public SecurityWebFilterChain configure(ServerHttpSecurity http) {
         return http
                 .csrf().disable()
                 .authorizeExchange()

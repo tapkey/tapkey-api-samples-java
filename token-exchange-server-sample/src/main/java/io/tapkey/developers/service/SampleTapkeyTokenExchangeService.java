@@ -69,11 +69,12 @@ public class SampleTapkeyTokenExchangeService implements TapkeyTokenExchangeServ
     public String createJwtToken(String userId) {
         Calendar expiration = Calendar.getInstance();
         expiration.roll(Calendar.HOUR, 1);
+        
+        HashMap<String, Object> claims = new HashMap<>();
+        claims.put("http://tapkey.net/oauth/token_exchange/client_id", oauthClientId);
 
         return Jwts.builder()
-                .addClaims(new HashMap<String, Object>() {{
-                    put("http://tapkey.net/oauth/token_exchange/client_id", oauthClientId);
-                }})
+                .addClaims(claims)
                 .setSubject(userId)
                 .setAudience(identityProviderAudience)
                 .setIssuer(identityProviderIssuer)
