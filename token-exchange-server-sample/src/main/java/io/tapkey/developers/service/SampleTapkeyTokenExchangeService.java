@@ -7,12 +7,16 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.util.UriComponentsBuilder;
+import org.springframework.web.util.DefaultUriBuilderFactory;
+import org.springframework.web.util.UriBuilder;
+import org.springframework.web.util.UriBuilderFactory;
 import reactor.core.publisher.Mono;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+
+import javax.annotation.PostConstruct;
 
 import static org.springframework.security.oauth2.client.web.reactive.function.client.ServerOAuth2AuthorizedClientExchangeFilterFunction.clientRegistrationId;
 
@@ -30,6 +34,9 @@ public class SampleTapkeyTokenExchangeService implements TapkeyTokenExchangeServ
 
     @Autowired
     private WebClient webClient;
+    
+    @Value("${tapkey.authority}")
+    private String tapkeyAuthority;
 
     /*
      * The ID of a Client Credentials OAuth client registered with Tapkey. The
@@ -55,6 +62,14 @@ public class SampleTapkeyTokenExchangeService implements TapkeyTokenExchangeServ
 
     @Value("${tapkey.identityProvider.issuer}")
     private String identityProviderIssuer;
+    
+    private UriBuilderFactory uriBuilderFactory;
+    
+    @PostConstruct
+    public void initialize() {
+        assert this.tapkeyAuthority != null;
+        uriBuilderFactory = new DefaultUriBuilderFactory(tapkeyAuthority);
+    }
 
     /**
      * Returns a new JWT token that can be exchanged for a Tapkey access token
@@ -92,9 +107,8 @@ public class SampleTapkeyTokenExchangeService implements TapkeyTokenExchangeServ
      * local user.
      */
     public Mono<String> createTapkeyUser(String userId) {
-        UriComponentsBuilder uriBuilder = UriComponentsBuilder.newInstance();
-        uriBuilder.scheme("https").host("dev1.dev.tapkey.net")
-                .replacePath("api")
+    	UriBuilder uriBuilder = uriBuilderFactory.builder()
+    			.replacePath("api")
                 .pathSegment("v1")
                 .pathSegment("Owners")
                 .pathSegment("{ownerAccountId}")
@@ -104,9 +118,9 @@ public class SampleTapkeyTokenExchangeService implements TapkeyTokenExchangeServ
 
         return webClient
                 .put()
-                .uri(uriBuilder.buildAndExpand(ownerAccountId, identityProviderId).toUriString())
+                .uri(uriBuilder.build(ownerAccountId, identityProviderId))
                 .attributes(clientRegistrationId("tapkey"))
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON)
                 .body(Mono.just(new IpUserDto(identityProviderId, userId)), IpUserDto.class)
                 .retrieve()
                 .bodyToMono(IpUserDto.class)

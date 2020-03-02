@@ -8,7 +8,6 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import org.springframework.web.util.UriBuilder;
 import org.springframework.web.util.UriBuilderFactory;
-import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Mono;
 
 import javax.annotation.PostConstruct;
@@ -58,7 +57,7 @@ public class SampleTapkeyManagementService implements TapkeyManagementService {
                 .put()
                 .uri(uriBuilder.build(ownerAccountId))
                 .attributes(clientRegistrationId("tapkey"))
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON)
                 .body(Mono.just(new ContactDto(identityProviderId, userId)), ContactDto.class)
                 .retrieve()
                 .bodyToMono(ContactDto.class)
@@ -79,7 +78,7 @@ public class SampleTapkeyManagementService implements TapkeyManagementService {
                 .put()
                 .uri(uriBuilder.build(ownerAccountId))
                 .attributes(clientRegistrationId("tapkey"))
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON)
                 .body(Mono.just(new GrantDto(contactId, boundLockId)), GrantDto.class)
                 .retrieve()
                 .bodyToMono(GrantDto.class)
