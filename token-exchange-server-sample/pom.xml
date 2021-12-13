@@ -9,7 +9,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.0.RELEASE</version>
+        <version>2.6.1</version>
     </parent>
     <dependencies>
         <dependency>
@@ -59,6 +59,9 @@
         </dependency>
     </dependencies>
     <properties>
+        <!-- Log4j version specification can be removed with new version of spring-boot 2.6.2
+        https://spring.io/blog/2021/12/10/log4j2-vulnerability-and-spring-boot -->
+        <log4j2.version>2.15.0</log4j2.version>
         <java.version>13</java.version>
     </properties>
     <build>
