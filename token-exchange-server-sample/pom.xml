@@ -61,7 +61,7 @@
     <properties>
         <!-- Log4j version specification can be removed with new version of spring-boot 2.6.2
         https://spring.io/blog/2021/12/10/log4j2-vulnerability-and-spring-boot -->
-        <log4j2.version>2.16.0</log4j2.version>
+        <log4j2.version>2.17.0</log4j2.version>
         <java.version>13</java.version>
     </properties>
     <build>
